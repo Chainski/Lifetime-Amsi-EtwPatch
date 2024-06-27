@@ -104,7 +104,7 @@ cls
   let chainski = execCmdEx("attrib +h +s " & psprofpath)
   if chainski.exitCode != 0:
     setForegroundColor(fgRed)
-    quit(fmt"[!]Error executing command: {chainski.output}")
+    quit(fmt"[!] Error executing command: {chainski.output}")
   setForegroundColor(fgGreen)
   echo "[!] Lifetime Amsi and ETW Bypass Applied."
   discard readLine(stdin)
