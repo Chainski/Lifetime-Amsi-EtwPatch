@@ -1,6 +1,6 @@
 :: https://github.com/Chainski/Lifetime-Amsi-EtwPatch
 @echo off
-:: Download a nim compiler from here https://nim-lang.org/install.html along with its C compiler https://nim-lang.org/download/mingw64.7z
+:: Download nim from here https://nim-lang.org/install.html along with its C compiler https://nim-lang.org/download/mingw64.7z
 :: After installing both, add them to your environment variables 
 :: rundll32 sysdm.cpl,EditEnvironmentVariables
 :: After running the command above as admin go to system variables and select path click edit, select new then input the path to the downloaded binaries. 
