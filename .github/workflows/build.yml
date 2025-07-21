@@ -53,10 +53,6 @@ jobs:
           gcc --version
         shell: cmd
 
-      - name: Install dependencies
-        run: nimble install -y
-        shell: cmd
-
       - name: Build Nim project
         run: nim c -d=release -d:strip --opt:size --cc:gcc --hints=on --app=console --cpu=amd64 --out=AMSI_ETW_Patcher.exe main.nim
         shell: cmd
