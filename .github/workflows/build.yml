@@ -58,11 +58,7 @@ jobs:
         shell: cmd
 
       - name: Build Nim project
-        run: nim c -d=release -d:strip --opt:size --cc:gcc --hints=on --app=console --cpu=amd64 --out=main main.nim
-        shell: cmd
-
-      - name: Rename binary
-        run: move main.exe AMSI_ETW_Patcher.exe
+        run: nim c -d=release -d:strip --opt:size --cc:gcc --hints=on --app=console --cpu=amd64 --out=AMSI_ETW_Patcher.exe main.nim
         shell: cmd
 
       - name: List build directory
