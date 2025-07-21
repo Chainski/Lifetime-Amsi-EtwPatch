@@ -3,10 +3,10 @@ name: Build AMSI_ETW_Patcher
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
     types: [closed]
 
 permissions:
@@ -21,10 +21,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup MinGW
+        uses: egor-tensin/setup-mingw@v1
+        with:
+          platform: x64
+
       - name: Setup Nim
-        uses: alaviss/setup-nim@0.1.2
+        uses: jiro4989/setup-nim-action@v2
         with:
           nim-version: 'stable'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies
         run: nimble install -y
