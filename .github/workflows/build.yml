@@ -1,0 +1,68 @@
+name: Build AMSI_ETW_Patcher
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+  repository-projects: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Nim
+        uses: alaviss/setup-nim@0.1.2
+        with:
+          nim-version: 'stable'
+
+      - name: Install dependencies
+        run: nimble install -y
+        shell: cmd
+
+      - name: Build Nim project
+        run: nim c -d=release -d:strip --opt:size --cc:gcc --hints=on --app=console --cpu=amd64 --out=AMSI_ETW_Patcher.exe main.nim
+        shell: cmd
+
+      - name: List build directory
+        shell: cmd
+        run: dir
+
+      - name: Delete existing tag and release
+        uses: dev-drprasad/delete-tag-and-release@v1.1
+        with:
+          tag_name: AE_build
+          delete_release: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        id: create_release
+        if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: AE_build
+          release_name: AE_build
+          body: "Release created by GitHub Actions"
+
+      - name: Upload Release Asset
+        if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: AMSI_ETW_Patcher.exe
+          asset_name: AMSI_ETW_Patcher.exe
+          asset_content_type: application/octet-stream
