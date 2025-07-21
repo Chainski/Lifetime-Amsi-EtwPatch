@@ -58,8 +58,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: AE_build
-          release_name: AE_build
+          tag_name: AE-build
+          release_name: AE-build
           body: "Release created by GitHub Actions"
 
       - name: Upload Release Asset
