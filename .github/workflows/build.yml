@@ -3,10 +3,10 @@ name: Build AMSI_ETW_Patcher
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
     types: [closed]
 
 permissions:
