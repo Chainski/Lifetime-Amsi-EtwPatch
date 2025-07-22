@@ -26,7 +26,6 @@ The program modifies the PowerShell profile (`Microsoft.PowerShell_profile.ps1`)
 
 
 ### Can this be removed ? 
-
 Run the powershell command below as admin to remove it 
 
 ```ps1
